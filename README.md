@@ -28,3 +28,23 @@ Passed as an object {}
   - help.placement: string ""  // popover placement (only used for help.type = "popover")
     - values = "top", "right", "bottom" or "left"
     - default = "right"
+
+# Example
+
+This example shows how to call passwordMeter on inputs with the "password-meter" class.<br>
+The function passed on help.model will return 5 stars, filled according to the score.<br>
+The star icons are from FontAwesome and the <b> classes from Materialize.
+
+$('input.password-meter').passwordMeter({
+  help: {
+    model: function (score) {
+              var result = '<b class="yellow-text text-darken-2">';
+  
+              for (var i = 1; i < 6; i++) {
+                  result += '<i class="fa fa-star' + (score < i ? '-o' : '') + '"></i>';
+              }
+  
+              return result + '</b>';
+          }
+  }
+});
