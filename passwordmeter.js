@@ -1,4 +1,4 @@
-﻿/*
+/*
 
     Author: André Luiz Rabêllo
 
@@ -22,13 +22,22 @@
 
     $.fn.passwordMeter = function (options) {
         // Settings
-        var settings = $.extend({
+        var settings = $.extend(true, {
             type: 'horizontal', // horizontal or vertical display
-            colors: ['red', 'orange', 'yellow', 'light-green', 'green'], // colors of the score stages
-            stars: true, // whether to display stars or text
-            help: 'popover', // ~ popover/div => type of help (other values do not create)
-            helpModel: '{{score}}', // html used as model for the help popover - {{score}} is replaced by the actual score
-            popoverPlacement: 'right', // where to display popover
+            colors: ['red', 'orange', 'yellow', 'light-green', 'green'], // colors of the score stages as classes
+            help: {
+                type: 'div', // ~ popover/div => type of help (other values do not create)
+                model: function (score) { // function that returns a custom score model - default is text (score / maxScore)
+                    var result = '<b class="yellow-text text-darken-2">';
+
+                    for (var i = 1; i < 6; i++) {
+                        result += '<i class="fa fa-star' + (score < i ? '-o' : '') + '"></i>';
+                    }
+
+                    return result + '</b>';
+                },
+                placement: 'right' // where to display popover
+            },
         }, options);
 
         // Check for zxcvbn
@@ -83,22 +92,17 @@
         function getScore(score) {
             // Locals
             var max = 5;
-            var result = '';
+            var textResult = score + ' / ' + max;
 
             // Guard against no score passed
             if (!$.isNumeric(score))
                 score = 0;
 
-            // Define
-            if (settings.stars)
-                for (var i = 1; i < 6; i++) {
-                    result += '<i class="fa fa-star' + (score < i ? '-o' : '') + '"></i>';
-                }
-            else
-                result = score + ' / ' + max;
+            // Return display
+            if ($.isFunction(settings.help.model))
+                return settings.help.model(score) || textResult;
 
-            // Return
-            return result;
+            return textResult;
         }
 
         // This input
@@ -129,9 +133,9 @@
                 var score = getScore(pass === '' ? 0 : passScore.score + 1);
 
                 // Find help
-                var $help = settings.help === 'popover'
+                var $help = settings.help.type === 'popover'
                           ? $wrapper.find('.popover')
-                          : settings.help === 'div'
+                          : settings.help.type === 'div'
                               ? $wrapper.siblings('.' + classes.help)
                               : $();
 
@@ -142,26 +146,23 @@
             });
 
         // Define help body
-        var helpBody = settings.helpModel.replace('{{score}}',
-                                    '<b class="' + classes.score + (settings.stars ? ' yellow-text text-darken-2' : '') + '">'
-                                    + getScore(0) + '</b>')
+        var helpBody = '<div class="' + classes.score + '">' + getScore() + '</div>';
 
         // Help content
-        if (settings.help === 'popover')
+        if (settings.help.type === 'popover')
             // Create help popover
             $input
                 .popover({
                     html: true,
                     trigger: 'focus',
-                    placement: settings.popoverPlacement,
+                    placement: settings.help.placement,
                     content: helpBody
                 });
-        else if (settings.help === 'div')
+        else if (settings.help.type === 'div') {
             // Create help div
             $wrapper.after('<div class="' + classes.help + '" style="display: none">' + helpBody + '</div>');
 
-        // Help show/hide listener
-        if (settings.help === 'div')
+            // Help show/hide listener
             $input
                 .focus(function () {
                     $wrapper.siblings('.' + classes.help).slideDown(350);
@@ -172,6 +173,7 @@
                         $wrapper.siblings('.' + classes.help).slideUp(350);
                     }, 250);
                 });
+        }
 
         // Return jQuery object
         return this;
