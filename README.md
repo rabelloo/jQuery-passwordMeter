@@ -33,7 +33,7 @@ Passed as an object {}
 
 This example shows how to call passwordMeter on inputs with the "password-meter" class.<br>
 The function passed on help.model will return 5 stars, filled according to the score.<br>
-The star icons are from FontAwesome and the <b> classes from Materialize.
+The star icons are from FontAwesome and the "b tag" classes from Materialize.
 
 $('input.password-meter').passwordMeter({
   help: {
