@@ -35,6 +35,7 @@ This example shows how to call passwordMeter on inputs with the "password-meter"
 The function passed on help.model will return 5 stars, filled according to the score.<br>
 The star icons are from FontAwesome and the "b tag" classes from Materialize.
 
+<code>
 $('input.password-meter').passwordMeter({
   help: {
     model: function (score) {
@@ -48,3 +49,4 @@ $('input.password-meter').passwordMeter({
           }
   }
 });
+</code>
