@@ -1,15 +1,15 @@
 # jQuery-passwordMeter
 Password meter display built on "zxcvbn"
 
-# Pre-requisites
+## Pre-requisites
 - jQuery
 - zxcvbn
 - * Bootstrap (only if "popover" is used)
 
-# Usage
+## Usage
 $().passwordMeter(options);
 
-# Options
+## Options
 Passed as an object {}
 
 - type: string ""  // meter display type
@@ -29,13 +29,13 @@ Passed as an object {}
     - values = "top", "right", "bottom" or "left"
     - default = "right"
 
-# Example
+## Example
 
 This example shows how to call passwordMeter on inputs with the "password-meter" class.<br>
 The function passed on help.model will return 5 stars, filled according to the score.<br>
-The star icons are from FontAwesome and the "b tag" classes from Materialize.
+The star icons are from FontAwesome and the `<b>` classes from Materialize.
 
-<code>
+```javascript
 $('input.password-meter').passwordMeter({
   help: {
     model: function (score) {
@@ -49,4 +49,4 @@ $('input.password-meter').passwordMeter({
           }
   }
 });
-</code>
+```
