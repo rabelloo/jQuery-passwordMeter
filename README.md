@@ -18,7 +18,7 @@ Passed as an object {}
 - colors: array []  // class names array for different scores (length: 5)
   - values = strings with class names
   - default = ['red', 'orange', 'yellow', 'light-green', 'green']
-- help: object {}  // object that holds other properties
+- help: object {}  // object that holds help properties
   - help.type: string ""  // if and what type of help to display
     - values = "div" or "popover"  // other values will not display help
     - default = "div"
