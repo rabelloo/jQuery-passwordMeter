@@ -27,15 +27,7 @@
             colors: ['red', 'orange', 'yellow', 'light-green', 'green'], // colors of the score stages as classes
             help: {
                 type: 'div', // ~ popover/div => type of help (other values do not create)
-                model: function (score) { // function that returns a custom score model - default is text (score / maxScore)
-                    var result = '<b class="yellow-text text-darken-2">';
-
-                    for (var i = 1; i < 6; i++) {
-                        result += '<i class="fa fa-star' + (score < i ? '-o' : '') + '"></i>';
-                    }
-
-                    return result + '</b>';
-                },
+                model: $.noop, // function that returns a custom score model - default is text (score / maxScore)
                 placement: 'right' // where to display popover
             },
         }, options);
