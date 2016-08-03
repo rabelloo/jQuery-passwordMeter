@@ -10,24 +10,16 @@ Password meter display built on "zxcvbn"
 $().passwordMeter(options);
 
 ## Options
-Passed as an object {}
+Passed as an object `{}` with the following properties:
 
-- type: string ""  // meter display type
-  - values = "horizontal" or "vertical"
-  - default = "horizontal"
-- colors: array []  // class names array for different scores (length: 5)
-  - values = strings with class names
-  - default = ['red', 'orange', 'yellow', 'light-green', 'green']
-- help: object {}  // object that holds help properties
-  - help.type: string ""  // if and what type of help to display
-    - values = "div" or "popover"  // other values will not display help
-    - default = "div"
-  - help.model: function (score) {}  // function that returns a custom help model
-    - param score = score received from zxcvbn, from 0 to 5 (0 is empty password, 1 to 5 is zxcvbn's 0 to 4)
-    - default = $.noop
-  - help.placement: string ""  // popover placement (only used for help.type = "popover")
-    - values = "top", "right", "bottom" or "left"
-    - default = "right"
+| Name | Type | Values | Default | Description |
+| --- | --- | --- | --- | --- |
+| type | string `""` | "horizontal" or "vertical" | "horizontal" | Meter display type |
+| colors | array `[]` | strings with class names | ['red', 'orange', 'yellow', 'light-green', 'green'] | Class names for different scores (length: 5) |
+| help | object `{}` |  | `{ type: 'div', model: $.noop, placement: 'right' }` | Holds help properties |
+| help.type | string `""` | "div" or "popover" **(other values will display no help)** | "div" | Type of help to display |
+| help.model | `function(score){}` | Parameter score: score received from zxcvbn, from 0 to 5 (0 is empty password, 1 to 5 is zxcvbn's 0 to 4) | $.noop | Function that returns a custom help model |
+| help.placement | string `""` | "top", "right", "bottom" or "left" | "right" | Popover placement (only used for help.type = "popover") |
 
 ## Example
 
