@@ -7,7 +7,9 @@ Password meter display built on "zxcvbn"
 - * Bootstrap (only if "popover" is used)
 
 ## Usage
+```javascript
 $().passwordMeter(options);
+```
 
 ## Options
 Passed as an object `{}` with the following properties:
