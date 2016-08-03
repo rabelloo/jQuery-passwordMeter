@@ -4,7 +4,7 @@ Password meter display built on "zxcvbn"
 # Pre-requisites
 - jQuery
 - zxcvbn
-- Bootstrap * (only if "popover" is used)
+- * Bootstrap (only if "popover" is used)
 
 # Usage
 $().passwordMeter(options);
